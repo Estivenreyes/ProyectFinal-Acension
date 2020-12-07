@@ -1,30 +1,42 @@
 package model;
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public class MainCharacter {
 	
 	PImage Anzu;
-	float posX;
-	float posY;
-	int speed;
-	boolean destroy;
-	boolean burn;
+	private float posX;
+	private float posY;
+	private boolean destroy;
+	private boolean burn;
+	private boolean shot = true;
 	
 	protected PApplet app;
+	
+	ArrayList<IBurnThem> fire = new ArrayList<IBurnThem>();
 	
 	public MainCharacter (float posX, float posY, PApplet app) {
 		this.posX = posX;
 		this.posY = posY;
-		this.speed = speed;
-		this.destroy = destroy;
-		this.burn = burn;
 		this.app = app;
 		this.Anzu = app.loadImage("./data/Anzu.png");
 	}
 	
 	public void draw() {
 		app.image(Anzu,posX,posY);
+		
+		for (int i = 0; i < fire.size(); i++) {
+			fire.get(i).draw();
+			if (fire.get(i).validatePos()) {
+				fire.remove(i);
+			}
+		}
+		
+		if(app.frameCount%60==0) {
+			shot = true;
+		}
 	}
 	
 	public void move(int keyCode) {
@@ -41,7 +53,19 @@ public class MainCharacter {
 				posX -= 100;
 				
 			}
-			
+		//anzu can shot with bar space	
+		case 32:
+			if(shot) {
+				IBurnThem burn = new IBurnThem(posX , posY , app);
+				fire.add(burn);
+				shot = false;
+			}
+		break;
+		
+		//Jump method here
+		case 120:
+		
+		break;
 		}
 			
 	}
@@ -62,4 +86,13 @@ public class MainCharacter {
 		this.burn = burn;
 	}
 
+	public ArrayList<IBurnThem> getFire() {
+		return fire;
+	}
+
+	public void setFire(ArrayList<IBurnThem> fire) {
+		this.fire = fire;
+	}
+	
+	
 }
