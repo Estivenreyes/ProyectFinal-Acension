@@ -64,7 +64,7 @@ public class MainCharacter {
 		
 		//Jump method here
 		case 120:
-		
+			
 		break;
 		}
 			

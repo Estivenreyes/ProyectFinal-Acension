@@ -1,10 +1,32 @@
 package model;
 
+import processing.core.PApplet;
+
 public class ExtraLife {
+	
+	private int posX;
+	private int posY;
+	private PApplet app;
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	public ExtraLife(int posX, int posY, PApplet app) {
+		this.posX = posX;
+		this.posY = posY;
+		this.app = app;
 	}
 
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
 }
