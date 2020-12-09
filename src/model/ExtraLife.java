@@ -1,9 +1,11 @@
 package model;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class ExtraLife {
 	
+	PImage lifeExtra;
 	private int posX;
 	private int posY;
 	private PApplet app;
@@ -12,6 +14,11 @@ public class ExtraLife {
 		this.posX = posX;
 		this.posY = posY;
 		this.app = app;
+		this.lifeExtra = app.loadImage("./data/lifeExtra.png");
+	}
+	
+	public void draw() {
+		app.image(lifeExtra, posX, posY);
 	}
 
 	public int getPosX() {

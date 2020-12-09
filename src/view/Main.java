@@ -1,14 +1,22 @@
 package view;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.swing.JOptionPane;
+
 import model.Enemy1;
 import model.Enemy2;
 import model.Enemy3;
 import model.MainCharacter;
+import model.Music;
 import processing.core.PApplet;
 import processing.core.PImage;
 
 public class Main extends PApplet {
-
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PApplet.main(Main.class.getName());
@@ -36,6 +44,7 @@ public class Main extends PApplet {
 	
 	//call class here
 	MainCharacter anzu;
+	Music music;
 	Enemy1 chopper;
 	Enemy2 demon;
 	Enemy3 eye;
