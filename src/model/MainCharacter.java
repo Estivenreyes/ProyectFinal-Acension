@@ -12,6 +12,8 @@ public class MainCharacter {
 	private boolean destroy;
 	private boolean burn;
 	private boolean shot = true;
+	private int jump;
+	private int speed;
 	
 	protected PApplet app;
 	
@@ -21,6 +23,8 @@ public class MainCharacter {
 		this.posX = posX;
 		this.posY = posY;
 		this.app = app;
+		this.jump = 500;
+		this.speed = 25;
 		this.Anzu = app.loadImage("./data/Anzu.png");
 	}
 	
@@ -39,18 +43,18 @@ public class MainCharacter {
 		}
 	}
 	
-	public void move(int keyCode) {
+	public void move(int keyCode, ArrayList<Platform> p) {
 		switch(keyCode) {
 		
 		case 39:
-			if(this.posX+100 < app.width-this.Anzu.width) {
-				posX += 100;
+			if(this.posX+100 < (app.width/2)-this.Anzu.width && collition(p) != 1) {
+				posX += speed;
 			}
 			
 		break;
 		case 37:
 			if(this.posX-100 > 0) {
-				posX -= 100;
+				posX -= speed;
 				
 			}
 		//anzu can shot with bar space	
@@ -68,7 +72,46 @@ public class MainCharacter {
 			
 		break;
 		}
-			System.out.println(keyCode);
+
+	}
+	
+	public int collition(ArrayList<Platform> platforms) {
+		int dir = 0;
+		for (int i = 0; i < platforms.size(); i++) {
+			if(this.posX+32 > platforms.get(i).getPosX()) {
+				dir = 1;
+			}else {
+				dir = 0;
+			}
+		}
+		return dir;
+		
+		
+		
+	}
+
+	public float getPosX() {
+		return posX;
+	}
+
+	public void setPosX(float posX) {
+		this.posX = posX;
+	}
+
+	public float getPosY() {
+		return posY;
+	}
+
+	public void setPosY(float posY) {
+		this.posY = posY;
+	}
+
+	public PApplet getApp() {
+		return app;
+	}
+
+	public void setApp(PApplet app) {
+		this.app = app;
 	}
 
 	public boolean isDestroy() {

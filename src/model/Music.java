@@ -24,8 +24,7 @@ public class Music{
 		}
 	}
 	
- 
-	public void play() {
+	public void playOwnWasHer() {
 		 try {
 			player.play();
 			System.out.println("Song playing");
@@ -34,4 +33,44 @@ public class Music{
 			e.printStackTrace();
 		}
 	}
-}
+	
+	public void playHopesofDreams() {
+		try {
+			  FileInputStream fileInputStream = new FileInputStream("./data/fieldofhopes.mp3");
+			  player = new Player(fileInputStream);
+		  } catch(FileNotFoundException e) {
+			  e.printStackTrace();
+		  } catch (JavaLayerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 try {
+				player.play();
+				System.out.println("Song playing");
+			} catch (JavaLayerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+	public void playAncientTemple() {
+		try {
+			  FileInputStream fileInputStream = new FileInputStream("./data/ancienttemple.mp3");
+			  player = new Player(fileInputStream);
+		  } catch(FileNotFoundException e) {
+			  e.printStackTrace();
+		  } catch (JavaLayerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		 try {
+				player.play();
+				System.out.println("Song playing");
+			} catch (JavaLayerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}

@@ -3,6 +3,7 @@ package view;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.swing.JOptionPane;
@@ -12,6 +13,10 @@ import model.Enemy2;
 import model.Enemy3;
 import model.MainCharacter;
 import model.Music;
+import model.Platform;
+import model.PlatformBlue;
+import model.PlatformRed;
+import model.PlatformRose;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -24,19 +29,12 @@ public class Main extends PApplet {
 	
 	//scenarios here
 	PImage scenario1;
+	int scen1X = 0;
 	
-	//image here platform
-	//scenario 1
-	PImage platRed1;
-	PImage platRed2;
-	PImage platRed3;
-	
-	//scenario 2
-	PImage platRose1;
-	PImage platRose2;
-	PImage platRose3;
-	PImage platformW2;
-	PImage platform2W2;
+	//Create arrays for platform
+	ArrayList<Platform> platformsRed;
+	ArrayList<Platform> platformsRose;
+	ArrayList<Platform> platformsBlue;
 	
 	// Screens win and lost
 	PImage win;
@@ -62,20 +60,25 @@ public class Main extends PApplet {
 		scenario1 = loadImage("./data/scenario1.png");
 		
 		//load image platform
-		//scenario 1
-		platRed1 = loadImage("./data/platRed1.png");
-		platRed2 = loadImage("./data/platRed2.png");
-		platRed3 = loadImage("./data/platRed3.png");
-		//scenario 2
-		platRose1 = loadImage("./data/platRose1.png");
-		platRose2 = loadImage("./data/platRose2.png");
-		platRose3 = loadImage("./data/platRose3.png");
+		platformsRed = new ArrayList<Platform>(); 
+		platformsRed.add(new PlatformRed(269,617, 0, this));
+		platformsRed.add(new PlatformRed(611,617, 0, this));
+		platformsRed.add(new PlatformRed(937,617, 0, this));
+		platformsRed.add(new PlatformRed(1038,572, 1, this));
+		platformsRed.add(new PlatformRed(1124,536, 1, this));
+		platformsRed.add(new PlatformRed(1215,496, 0, this));
+		platformsRed.add(new PlatformRed(1554,617, 0, this));
+		platformsRed.add(new PlatformRed(1694,575, 2, this));
+		platformsRed.add(new PlatformRed(1948,586, 0, this));
+		platformsRed.add(new PlatformRed(2130,494, 0, this));
+		platformsRed.add(new PlatformRed(2272,617, 0, this));
 		
 		//Class object position
 		anzu = new MainCharacter(77, 598, this);
 		chopper = new Enemy1(500, 617, 1, this);
 		demon = new Enemy2(466, 585, 3, this);
 		eye = new Enemy3(500, 435, 1, this);
+		music = new Music();
 	}
 	
 	public void draw () {
@@ -124,19 +127,12 @@ public class Main extends PApplet {
 		
 		}*/
 		//scenarios
-		image(scenario1, 0, 0);
+		image(scenario1, scen1X, 0);
+		
 		//Platforms scenario 1
-		image(platRed1, 269, 617);
-		image(platRed1, 611, 617);
-		image(platRed1, 937, 617);
-		image(platRed2, 1038, 572);
-		image(platRed2, 1124, 536);
-		image(platRed1, 1215, 496);
-		image(platRed1, 1554, 617);
-		image(platRed3, 1694, 575);
-		image(platRed1, 1948, 586);
-		image(platRed1, 2130, 494);
-		image(platRed1, 2272, 617);
+		for (int i = 0; i < platformsRed.size(); i++) {
+			platformsRed.get(i).draw();
+		}
 		anzu.draw();
 		chopper.draw();
 		chopper.run();
@@ -146,8 +142,25 @@ public class Main extends PApplet {
 		eye.move();
 	}
 	
+	public void MoveScenario(int offset){
+		scen1X -= offset;
+		for (int i = 0; i < platformsRed.size(); i++) {
+			platformsRed.get(i).setPosX(platformsRed.get(i).getPosX()- offset);
+		}
+	}
+	
 	public void keyPressed() {
-		anzu.move(keyCode);
+		anzu.move(keyCode, platformsRed);
+	
+		if(keyCode == 39) {
+			MoveScenario(100);
+		}
+	}
+	
+	public void validatePlatformColision () {
+		for (int i = 0; i < platformNames.length; i++) {
+			
+		}
 	}
 	
 }
