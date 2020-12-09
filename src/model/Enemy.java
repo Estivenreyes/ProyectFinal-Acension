@@ -2,14 +2,14 @@ package model;
 
 import processing.core.PApplet;
 
-public class Enemy {
+public class Enemy implements Runnable{
 
-	float posX;
-	float posY;
-	int speed;
+	protected int posX;
+	protected int posY;
+	protected int speed;
 	protected PApplet app;
 	
-	public Enemy (float posX, float posY, int speed, PApplet app) {
+	public Enemy (int posX, int posY, int speed, PApplet app) {
 		
 		this.posX = posX;
 		this.posY = posY;
@@ -17,12 +17,30 @@ public class Enemy {
 		this.app = app;
 		
 	}
+	
+	public void move() {
+		if(app.frameCount%speed == 0) {
+			int dir = (int) app.random(4);
+			switch (dir) {
+			case 0:
+				posX +=100;
+			break;
+			
+			case 1:
+				posX-=100;
+				
+			break;
+				
+			}
+		}
+	}
+
 
 	public float getPosX() {
 		return posX;
 	}
 
-	public void setPosX(float posX) {
+	public void setPosX(int posX) {
 		this.posX = posX;
 	}
 
@@ -30,7 +48,7 @@ public class Enemy {
 		return posY;
 	}
 
-	public void setPosY(float posY) {
+	public void setPosY(int posY) {
 		this.posY = posY;
 	}
 
@@ -40,6 +58,11 @@ public class Enemy {
 
 	public void setSpeed(int speed) {
 		this.speed = speed;
+	}
+
+	@Override
+	public void run() {
+		move();
 	}
 	
 	

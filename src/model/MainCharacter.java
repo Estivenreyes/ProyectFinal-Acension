@@ -63,11 +63,12 @@ public class MainCharacter {
 		break;
 		
 		//Jump method here
-		case 120:
+		case 88:
+			
 			
 		break;
 		}
-			
+			System.out.println(keyCode);
 	}
 
 	public boolean isDestroy() {
