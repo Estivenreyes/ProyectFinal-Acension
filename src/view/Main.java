@@ -123,7 +123,7 @@ public class Main extends PApplet {
 	
 	public void draw () {
 		background(46,46,46);
-		screen = 4;
+		screen = 3;
 		switch(screen) {
 	
 		// Screen where you write your name
@@ -131,10 +131,10 @@ public class Main extends PApplet {
 			background(46,46,46);
 			image(register, 0, 0);
 		break;
-		
+	
 		//Instruction screen
 		case 1:
-		
+			image(instruction, 0, 0);
 		break;
 		
 		//Game Screen first level
@@ -166,6 +166,12 @@ public class Main extends PApplet {
 			}
 			
 			anzu.draw();
+			chopper.draw();
+			chopper.run();
+			demon.draw();
+			demon.run();
+			eye.draw();
+			eye.move();
 		break;
 		
 		//Game Screen third level
@@ -178,6 +184,12 @@ public class Main extends PApplet {
 			}
 			
 			anzu.draw();
+			chopper.draw();
+			chopper.run();
+			demon.draw();
+			demon.run();
+			eye.draw();
+			eye.move();
 		break;
 		
 		//Lost screen
@@ -200,10 +212,31 @@ public class Main extends PApplet {
 	}
 	
 	public void MoveScenario(int offset){
-		scen1X -= offset;
-		for (int i = 0; i < platformsRed.size(); i++) {
-			platformsRed.get(i).setPosX(platformsRed.get(i).getPosX()- offset);
+	
+		switch(screen) {
+		
+		case 2:
+			scen1X -= offset;
+			for (int i = 0; i < platformsRed.size(); i++) {
+				platformsRed.get(i).setPosX(platformsRed.get(i).getPosX()- offset);
+			}
+		break;
+		
+		case 3:
+			scen2X -= offset;
+			for (int i = 0; i < platformsRose.size(); i++) {
+				platformsRose.get(i).setPosX(platformsRose.get(i).getPosX()- offset);
+			}
+		break;
+		
+		case 4:
+			scen3X -= offset; 
+			for (int i = 0; i < platformsBlue.size(); i++) {
+				platformsBlue.get(i).setPosX(platformsBlue.get(i).getPosX()- offset);
+			}
+		break;
 		}
+		
 	}
 	
 	public void keyPressed() {
@@ -219,6 +252,58 @@ public class Main extends PApplet {
 	public void validatePlatformColision () {
 		for (int i = 0; i < platformNames.length; i++) {
 			
+		}
+	}
+	
+	public void mousePressed() {
+		switch(screen) {
+		
+		// Screen where you write your name
+		case 0:
+			if (mouseX > 572 && mouseX < 699 && mouseY > 407 && mouseY < 452) {
+				screen = 1;
+			}
+		break;
+	
+		//Instruction screen
+		case 1:
+			if (mouseX > 573 && mouseX < 700 && mouseY > 605 && mouseY < 652) {
+				screen = 2;
+				System.out.println(screen);
+			}
+	
+		break;
+		
+		//Game Screen first level
+		case 2:
+			
+		break;
+		
+		//Game Screen second level
+		case 3:
+			
+		break;
+		
+		//Game Screen third level
+		case 4:
+			
+		break;
+		
+		//Lost screen
+		case 5:
+		
+		break;
+		
+		// Win screen
+		case 6:
+		
+		break;
+		
+		// Data screen
+		case 7:
+		 
+		break;
+		
 		}
 	}
 	
