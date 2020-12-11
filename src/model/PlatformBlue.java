@@ -9,11 +9,11 @@ public class PlatformBlue extends Platform{
 		
 		switch (this.type) {
 		case 0:
-			this.platformImg = app.loadImage("./data/platBlue1.png");
+			this.platformImg = app.loadImage("./data/platformBlue1.png");
 		break;
 		
 		case 1: 
-			this.platformImg = app.loadImage("./data/platBlue2.png");
+			this.platformImg = app.loadImage("./data/platformBlue2.png");
 		break;
 		
 		}

@@ -16,8 +16,16 @@ public class PlatformRose extends Platform{
 			this.platformImg = app.loadImage("./data/platRose2.png");
 		break;
 		
-		case 3:
+		case 2:
 			this.platformImg = app.loadImage("./data/platRose3.png");
+		break;
+		
+		case 3:
+			this.platformImg = app.loadImage("./data/platformW2.png");
+		break;
+		
+		case 4:
+			this.platformImg = app.loadImage("./data/platform2W2.png");
 		break;
 		}
 	}

@@ -29,16 +29,23 @@ public class Main extends PApplet {
 	
 	//scenarios here
 	PImage scenario1;
+	PImage scenario2;
+	PImage scenario3;
+	
 	int scen1X = 0;
+	int scen2X = 0;
+	int scen3X = 0;
 	
 	//Create arrays for platform
 	ArrayList<Platform> platformsRed;
 	ArrayList<Platform> platformsRose;
 	ArrayList<Platform> platformsBlue;
 	
-	// Screens win and lost
+	// Screens register, win, lost and instruction
 	PImage win;
 	PImage lost;
+	PImage register;
+	PImage instruction;
 	
 	//call class here
 	MainCharacter anzu;
@@ -58,8 +65,11 @@ public class Main extends PApplet {
 		
 		//Scenarios
 		scenario1 = loadImage("./data/scenario1.png");
+		scenario2 = loadImage("./data/scenario2.png");
+		scenario3 = loadImage("./data/scenario3.jpg");
 		
 		//load image platform
+		//Red Platforms
 		platformsRed = new ArrayList<Platform>(); 
 		platformsRed.add(new PlatformRed(269,617, 0, this));
 		platformsRed.add(new PlatformRed(611,617, 0, this));
@@ -73,21 +83,53 @@ public class Main extends PApplet {
 		platformsRed.add(new PlatformRed(2130,494, 0, this));
 		platformsRed.add(new PlatformRed(2272,617, 0, this));
 		
+		//Rose Platforms
+		platformsRose = new ArrayList<Platform>(); 
+		platformsRose.add(new PlatformRose(316,578,3,this));
+		platformsRose.add(new PlatformRose(443,526,3,this));
+		platformsRose.add(new PlatformRose(602,457,4,this));
+		platformsRose.add(new PlatformRose(683,403,3,this));
+		platformsRose.add(new PlatformRose(765,622,0,this));
+		platformsRose.add(new PlatformRose(924,578,3,this));
+		platformsRose.add(new PlatformRose(1048,526,3,this));
+		platformsRose.add(new PlatformRose(1251,490,4,this));
+		platformsRose.add(new PlatformRose(1486,629,4,this));
+		platformsRose.add(new PlatformRose(1572,612,3,this));
+		platformsRose.add(new PlatformRose(1744,600,4,this));
+		platformsRose.add(new PlatformRose(1830,557,3,this));
+		platformsRose.add(new PlatformRose(1935,609,4,this));
+		platformsRose.add(new PlatformRose(2073,610,4,this));
+		
+		//Blue Platforms
+		platformsBlue = new ArrayList<Platform>();
+		platformsBlue.add(new PlatformBlue(488,582,0,this));
+		platformsBlue.add(new PlatformBlue(752,531,1,this));
+		platformsBlue.add(new PlatformBlue(1273,593,1,this));
+		platformsBlue.add(new PlatformBlue(1463,546,0,this));
+		
 		//Class object position
 		anzu = new MainCharacter(77, 598, this);
 		chopper = new Enemy1(500, 617, 1, this);
 		demon = new Enemy2(466, 585, 3, this);
 		eye = new Enemy3(500, 435, 1, this);
 		music = new Music();
+		
+		//load screen image
+		win = loadImage("./data/win.png");
+		lost = loadImage("./data/lost.png");
+		instruction = loadImage("./data/instruction.png");
+		register = loadImage("./data/register.png");
 	}
 	
 	public void draw () {
 		background(46,46,46);
-		/*switch(screen) {
+		screen = 4;
+		switch(screen) {
 	
 		// Screen where you write your name
 		case 0:
-		
+			background(46,46,46);
+			image(register, 0, 0);
 		break;
 		
 		//Instruction screen
@@ -97,17 +139,45 @@ public class Main extends PApplet {
 		
 		//Game Screen first level
 		case 2:
+			background(46,46,46);
+			//scenarios
+			image(scenario1, scen1X, 0);
+			//Platforms scenario 1
+			for (int i = 0; i < platformsRed.size(); i++) {
+				platformsRed.get(i).draw();
+			}
 			
+			anzu.draw();
+			chopper.draw();
+			chopper.run();
+			demon.draw();
+			demon.run();
+			eye.draw();
+			eye.move();
 		break;
 		
 		//Game Screen second level
 		case 3:
-		
+			background(46,46,46);
+			image(scenario2, scen2X, 0);
+			
+			for (int i = 0; i < platformsRose.size(); i++) {
+				platformsRose.get(i).draw();
+			}
+			
+			anzu.draw();
 		break;
 		
 		//Game Screen third level
 		case 4:
-		
+			background(46,46,46);
+			image(scenario3, scen3X, 0);
+			
+			for (int i = 0; i < platformsBlue.size(); i++) {
+				platformsBlue.get(i).draw();
+			}
+			
+			anzu.draw();
 		break;
 		
 		//Lost screen
@@ -125,21 +195,8 @@ public class Main extends PApplet {
 		 
 		break;
 		
-		}*/
-		//scenarios
-		image(scenario1, scen1X, 0);
-		
-		//Platforms scenario 1
-		for (int i = 0; i < platformsRed.size(); i++) {
-			platformsRed.get(i).draw();
 		}
-		anzu.draw();
-		chopper.draw();
-		chopper.run();
-		demon.draw();
-		demon.run();
-		eye.draw();
-		eye.move();
+		
 	}
 	
 	public void MoveScenario(int offset){
@@ -151,7 +208,9 @@ public class Main extends PApplet {
 	
 	public void keyPressed() {
 		anzu.move(keyCode, platformsRed);
-	
+		anzu.move(keyCode, platformsRose);
+		anzu.move(keyCode, platformsBlue);
+		
 		if(keyCode == 39) {
 			MoveScenario(100);
 		}
