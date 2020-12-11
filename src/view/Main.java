@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Button;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -11,6 +12,7 @@ import javax.swing.JOptionPane;
 import model.Enemy1;
 import model.Enemy2;
 import model.Enemy3;
+import model.Inputs;
 import model.MainCharacter;
 import model.Music;
 import model.Platform;
@@ -54,6 +56,11 @@ public class Main extends PApplet {
 	Enemy2 demon;
 	Enemy3 eye;
 	
+	
+	Inputs input;
+	
+	String name;
+	
 	int screen;
 	
 	public void settings () {
@@ -62,7 +69,10 @@ public class Main extends PApplet {
 	}
 	
 	public void setup () {
-		
+		//inputs
+		input = new Inputs(width/2+250, (320), -500, 50, 100, this);
+	
+		name = "";
 		//Scenarios
 		scenario1 = loadImage("./data/scenario1.png");
 		scenario2 = loadImage("./data/scenario2.png");
@@ -123,13 +133,17 @@ public class Main extends PApplet {
 	
 	public void draw () {
 		background(46,46,46);
-		screen = 3;
+		//screen = 3;
 		switch(screen) {
 	
 		// Screen where you write your name
 		case 0:
 			background(46,46,46);
 			image(register, 0, 0);
+			input.draw();
+			fill(0);
+			textSize(14);
+			text(name, 419,340);
 		break;
 	
 		//Instruction screen
@@ -154,6 +168,7 @@ public class Main extends PApplet {
 			demon.run();
 			eye.draw();
 			eye.move();
+			
 		break;
 		
 		//Game Screen second level
@@ -214,7 +229,6 @@ public class Main extends PApplet {
 	public void MoveScenario(int offset){
 	
 		switch(screen) {
-		
 		case 2:
 			scen1X -= offset;
 			for (int i = 0; i < platformsRed.size(); i++) {
@@ -240,6 +254,9 @@ public class Main extends PApplet {
 	}
 	
 	public void keyPressed() {
+		
+		input.writeText(key);
+		
 		anzu.move(keyCode, platformsRed);
 		anzu.move(keyCode, platformsRose);
 		anzu.move(keyCode, platformsBlue);
@@ -249,17 +266,22 @@ public class Main extends PApplet {
 		}
 	}
 	
-	public void validatePlatformColision () {
-		for (int i = 0; i < platformNames.length; i++) {
+	/*public void validatePlatformColision () {
+		for (int i = 0; i < platformsBlue.size(); i++) {
 			
 		}
-	}
+	}*/
 	
 	public void mousePressed() {
 		switch(screen) {
 		
 		// Screen where you write your name
 		case 0:
+			input.setFocus();
+			/*if() {
+				System.out.println(input.getText());
+			}*/
+			
 			if (mouseX > 572 && mouseX < 699 && mouseY > 407 && mouseY < 452) {
 				screen = 1;
 			}
